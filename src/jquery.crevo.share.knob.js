@@ -79,7 +79,7 @@
 					
 					// create shareknob markup
 					// @todo	hard coded path
-					var $el = $('<div class="shareknob-dial"><img src="src/crevo_socialmediaknob_150x150.png" /></div>');
+					var $el = $('<div class="shareknob-dial"><img src="'+settings.pluginRoot+'/crevo_socialmediaknob_150x150.png" /></div>');
 
 					$el.css({
 						'-webkit-transition': 'all 2s',
