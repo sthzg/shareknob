@@ -12,6 +12,7 @@
 					 * the view_mode is a switch between different display options.
 					 */
 					'pluginRoot': 'src',
+					'shareknobImage': 'crevo_socialmediaknob_var4_150x150.png',
 					'size': 150,
 					'popupDelay': 200,
 					'services': [
@@ -49,18 +50,18 @@
 					]
 				};
 				
+				// If options exist, lets merge them with our default settings
+				if ( options ) {
+					settings = $.extend( {}, settings, options );
+				}
+				
 				// preload icons to prevent flickering while the appear effect
 				$.each(settings.services, function(key, val) {
 					$('<img/>')[0].src = settings.pluginRoot + '/icons/' + val.id + '.png';
 				});
 
        return this.each(function(key, val){
-       
-				// If options exist, lets merge them with our default settings
-				if ( options ) {
-					settings = $.extend( {}, settings, options );
-				}
-         
+        
          var $this = $(this);
          var data = $this.data('shareknob');
          
@@ -79,7 +80,7 @@
 					
 					// create shareknob markup
 					// @todo	hard coded path
-					var $el = $('<div class="shareknob-dial"><img src="'+settings.pluginRoot+'/crevo_socialmediaknob_150x150.png" /></div>');
+					var $el = $('<div class="shareknob-dial"><img src="'+settings.pluginRoot+'/' + settings.shareknobImage + '" /></div>');
 
 					$el.css({
 						'-webkit-transition': 'all 2s',
@@ -87,6 +88,7 @@
 						'-ms-transition': 'all 2s',
 						'-o-transition': 'all 2s',
 						'transition': 'all 2s',
+						'-webkit-transform': 'scale(.9) rotate(0deg)',
 						'width': '150px',
 						'height': '150px',
 						'overflow': 'hidden',
@@ -96,14 +98,14 @@
 	
 					$el.one("mouseenter", function(ev) {
 						$el.css({
-							'-webkit-transform': 'rotate(450deg)',
+							'-webkit-transform': 'scale(1) rotate(450deg)',
 							'cursor': 'pointer'
 						});
 					});
 					
 					$el.one("mouseleave", function(ev) {
 						$el.css({
-							'-webkit-transform': 'rotate(-0deg)',
+							'-webkit-transform': 'scale(.9) rotate(-0deg)',
 							'cursor': 'pointer'
 						});					
 					});
@@ -165,7 +167,7 @@
 								window.open(service.link);	
 							});
 							
-							$('.shareknob').append($tile);
+							$('body').append($tile);
 							
 							// timeout for delayed appearance
 							var appear = setTimeout(function() {
