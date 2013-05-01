@@ -12,7 +12,8 @@
 					 * the view_mode is a switch between different display options.
 					 */
 					'pluginRoot': 'src',
-					'shareknobImage': 'crevo_socialmediaknob_var4_150x150.png',
+					'shareknobImage': 'crevo_socialmediaknob_var1_150x150.png',
+					'shareknobImageClose': 'crevo_socialmediaknob_close_var1_150x150.png',
 					'size': 150,
 					'popupDelay': 200,
 					'services': [
@@ -80,7 +81,10 @@
 					
 					// create shareknob markup
 					// @todo	hard coded path
-					var $el = $('<div class="shareknob-dial"><img src="'+settings.pluginRoot+'/' + settings.shareknobImage + '" /></div>');
+					var $el = $('<div class="shareknob-dial">' +
+							'<img class="shareknob-open" src="'+settings.pluginRoot+'/' + settings.shareknobImage + '" />' +
+							'<img class="shareknob-close" src="'+settings.pluginRoot+'/' + settings.shareknobImageClose + '" style="opacity: 0; position: absolute; top: 0; left: 0;" />' +
+						'</div>');
 
 					$el.css({
 						'-webkit-transition': 'all 2s',
@@ -117,9 +121,13 @@
 						var itemsPerRow = 3;
 					
 						$.each(settings.services, function(i, service) {
+							
+							// Show the close knob state
+							jQuery('.shareknob-close').animate({'opacity': '1'}, 1000);
+							
+							// Create the service tiles an calculate their positions
 							var $tile = $('<div class="service service-' + service.id + '"></div>');
-							
-							
+
 							var row = Math.floor(i / itemsPerRow);
 							var item = Math.abs(row * itemsPerRow - i);
 							
